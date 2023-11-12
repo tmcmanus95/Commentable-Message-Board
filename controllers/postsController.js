@@ -1,7 +1,6 @@
-// controllers/postController.js
 const express = require("express");
 const router = express.Router();
-const { Post } = require("../models");
+const { Post } = require("../models/Post");
 
 router.get("/dashboard", async (req, res) => {
   try {

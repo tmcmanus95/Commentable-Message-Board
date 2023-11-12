@@ -1,16 +1,15 @@
-// models/post.js
 const { Model, DataTypes } = require("sequelize");
-const sequelize = require("../config/connection");
+const sequelize = require("../config/connections");
 
 class Post extends Model {}
 
 Post.init(
   {
-    title: {
+    post_title: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    content: {
+    post_content: {
       type: DataTypes.TEXT,
       allowNull: false,
     },

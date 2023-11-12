@@ -5,14 +5,15 @@ const SequelizeStore = require("connect-session-sequelize")(session.Store);
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const helpers = require("./utils/helpers");
 
 const routes = {
   home: require("./controllers/homepageController"),
-  auth: require("./controllers/authController"),
+  // auth: require("./Commentable-Message-Board/controllers/authController"),
   post: require("./controllers/postsController"),
 };
 
-const sequelize = require("./config/connection");
+const sequelize = require("./config/connections");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -30,13 +31,11 @@ const sess = {
 
 app.use(session(sess));
 
-// Set up handlebars
-app.engine("handlebars", exphbs({ defaultLayout: "main" }));
+const hbs = exphbs.create({ helpers });
+app.engine("handlebars", hbs.engine);
 app.set("view engine", "handlebars");
 
-// Use routes
 app.use("/", routes.home);
-app.use("/auth", routes.auth);
 app.use("/post", routes.post);
 
 // Sync database and start server
